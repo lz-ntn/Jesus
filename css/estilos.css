@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Farsan&family=Jersey+10&family=Meow+Script&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --fonte-t1: "BBH Bartle", sans-serif;
+    --font-t2: "Farsan", sans-serif;
+    --font-txt: "Jersey 10", monospace;
+    --font-txt1: "Meow Script", monospace;
+    --cor-branca: white;
+}
+
+body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-image: linear-gradient(forestgreen, lightskyblue);
+    background-repeat: no-repeat;
+    color: grey;
+    position: relative;
+    min-height: 100vh;
+}
+
+canvas#particulas-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.77rem 0;
+}
+
+nav {
+    width: 100%;
+}
+
+main section#inicio .container .destaq {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0.5rem 0;
+    border-radius: 0.5rem;
+    border-left: 13px solid orangered;
+    box-shadow: 0 0 5px lightgoldenrodyellow;
+    background-color: rgb(0, 0, 0, 0.777);
+    color: lightgoldenrodyellow;
+}
+
+main section#inicio .container .destaq h2 {
+    font-family: var(--fonte-t1);
+    font-size: 2.3rem;
+    letter-spacing: 1px;
+    padding: 0.5rem;
+    color: lightskyblue;
+}
+
+main section#inicio .container .destaq p {
+    font-family: var(--font-txt);
+    color: forestgreen;
+    font-size: 1.5rem;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 1px yellow;
+    text-align: justify;
+}
+
+main section#inicio .container h3 {
+    width: 50%;
+    text-align: center;
+    border-radius: 0.3rem;
+    font-family: var(--font-t1);
+    font-size: 2.5rem;
+    color: lightskyblue;
+    box-shadow: 0 0 1px 1px;
+}
+
+main section#inicio .container ul li {
+    text-align: justify;
+}
+
+main section#rl {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+    background-color: rgba(0, 0, 0, 0.777);
+    color: lightskyblue;
+}
+
+main section#rl .container h2 {
+    width: 100%;
+    text-align: center;
+    border-radius: 0.3rem;
+    margin-top: 1.5rem;
+    padding: 0.3rem;
+    font-family: var(--font-t2);
+    font-weight: 900;
+    font-size: 1.9rem;
+    color: forestgreen;
+    box-shadow: 0 0 1px 1px;
+
+}
+
+main section#rl .container h3 {
+    width: 100%;
+    padding: 0.3rem;
+    text-align: center;
+    border-radius: 0.3rem;
+    font-family: var(--font-t2);
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: forestgreen;
+    box-shadow: 0 0 1px 1px;
+}
+
+main section#rl .container p {
+    font-family: var(--font-txt);
+    font-size: 1.2rem;
+    text-align: justify;
+    color: lightyellow;
+}
+
+main section#botoes {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.conteudo1 {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+}
+
+.conteudo1.visivel {
+    opacity: 1;
+    max-height: 500px;
+}
