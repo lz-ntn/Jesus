@@ -1,0 +1,20 @@
+{
+  "name": "jesus-sem-filtro",
+  "version": "1.0.0",
+  "description": "Blog sobre Jesus histórico - sem filtros religiosos",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:posts && vite build && node scripts/copy-pages.js && node scripts/generate-seo.js",
+    "preview": "vite preview",
+    "build:posts": "node scripts/build-posts.js"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0",
+    "glob": "^11.0.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^14.0.0",
+    "dompurify": "^3.1.0",
+    "jsdom": "^24.0.0"
+  }
+}
