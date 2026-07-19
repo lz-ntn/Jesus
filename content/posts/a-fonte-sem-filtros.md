@@ -2,7 +2,7 @@
 title: "A Fonte — Sem filtros: O que parece ser a verdade mais nua"
 slug: "a-fonte-sem-filtros"
 date: "2026-07-10"
-tags: ["a-fonte", "deus", "espiritualidade", "misticismo", "consciencia"]
+tags: ["a-fonte", "DEUS", "espiritualidade", "misticismo", "consciencia"]
 excerpt: "A Fonte é aquilo que não tem nome adequado. Todas as palavras — Deus, Consciência, Brahman, Tao, Vazio, Ser, Absoluto — são tentativas humanas fracas de apontar para algo que está além da linguagem."
 author: "Lz_ntn"
 ---
