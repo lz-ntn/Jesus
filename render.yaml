@@ -3,4 +3,5 @@ services:
     name: jesus-sem-filtro
     runtime: static
     buildCommand: yarn install && yarn build
-    staticPublishPath: dist
+    startCommand: npx serve dist --no-clipboard
+    autoDeploy: true
