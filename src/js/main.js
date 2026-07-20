@@ -1,3 +1,4 @@
+import '../css/main.css';
 import { particleSystem } from './ParticleSystem.js';
 import { themeManager } from './ThemeManager.js';
 import { readingProgress } from './ReadingProgress.js';

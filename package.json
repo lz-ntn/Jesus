@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/build.js && vite",
-    "build": "node scripts/build.js && vite build",
+    "build": "node scripts/build.js && vite build && node scripts/postbuild.js",
     "preview": "vite preview",
     "start": "serve dist -s"
   },
