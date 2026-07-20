@@ -2,8 +2,11 @@ services:
   - type: web
     name: jesus-sem-filtro
     runtime: static
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
+    buildCommand: yarn install && yarn build
+    startCommand: yarn start
+    envVars:
+      - key: NODE_ENV
+        value: production
     routes:
       - type: rewrite
         source: /*
