@@ -2,7 +2,7 @@ import { CONFIG, SELECTORS, STORAGE_KEYS } from './config.js';
 
 class ThemeManager {
   constructor() {
-    this.currentTheme = 'dark';
+    this.currentTheme = 'light';
   }
 
   init() {

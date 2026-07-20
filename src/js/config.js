@@ -10,7 +10,7 @@ export const CONFIG = {
     pulseSpeed: 0.008,
   },
   theme: {
-    default: 'dark',
+    default: 'light',
     storageKey: 'theme',
   },
   search: {
