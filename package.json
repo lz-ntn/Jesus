@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/build.js && vite",
-    "build": "node scripts/build.js && vite build && node scripts/postbuild.js",
+    "build": "node scripts/build.js && vite build",
     "preview": "vite preview",
-    "start": "serve dist --no-clipboard"
+    "start": "serve dist -s"
   },
   "devDependencies": {
     "dompurify": "^3.1.0",

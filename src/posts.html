@@ -1,108 +1,101 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Artigos | Jesus, sem filtros</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <meta name="description" content="Artigos sobre Jesus histórico, seus ensinamentos radicais, hipocrisia religiosa, riqueza, a Fonte e a história do cristianismo - sem filtros.">
-  <meta property="og:title" content="Artigos | Jesus, sem filtros">
-  <meta property="og:description" content="Artigos sobre Jesus histórico, seus ensinamentos radicais, hipocrisia religiosa, riqueza, a Fonte e a história do cristianismo.">
-  <meta property="og:type" content="website">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Cinzel:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="/posts.html">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artigos | Jesus, sem filtros</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="description" content="Artigos sobre Jesus histórico, seus ensinamentos radicais, hipocrisia religiosa, riqueza, a Fonte e a história do cristianismo - sem filtros.">
+    <meta property="og:title" content="Artigos | Jesus, sem filtros">
+    <meta property="og:description" content="Artigos sobre Jesus histórico, seus ensinamentos radicais, hipocrisia religiosa, riqueza, a Fonte e a história do cristianismo.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Cinzel:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="/posts.html">
 </head>
+
 <body>
-  <canvas id="particles-canvas" aria-hidden="true"></canvas>
-  
-  <header class="site-header" role="banner">
-    <div class="container">
-      <a href="/" class="site-brand" aria-label="Jesus, sem filtros - Início">
-        <i class="bi bi-person-workspace" aria-hidden="true"></i>
-        <span>Jesus, sem filtros</span>
-      </a>
-      <nav class="main-nav" role="navigation" aria-label="Navegação principal">
-        <a href="/" class="nav-link">Início</a>
-        <a href="/posts.html" class="nav-link active" aria-current="page">Artigos</a>
-        <a href="/tags.html" class="nav-link">Tags</a>
-        <a href="/archive.html" class="nav-link">Arquivo</a>
-        <a href="/sobre.html" class="nav-link">Sobre</a>
-      </nav>
-      <button class="theme-toggle" aria-label="Alternar entre tema claro e escuro" title="Alternar tema">
-        <i class="bi bi-sun-fill" aria-hidden="true"></i>
-        <i class="bi bi-moon-fill" aria-hidden="true"></i>
-      </button>
-      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
-        <i class="bi bi-list" aria-hidden="true"></i>
-      </button>
-    </div>
-  </header>
-
-  <main class="site-main" role="main">
-    <div class="container">
-      <header class="page-header">
-        <h1>Artigos</h1>
-        <p>Visão histórica e direta sobre Jesus de Nazaré - sem maquiagem religiosa, sem romantismo new age, sem cinismo barato.</p>
-      </header>
-
-      <div class="posts-toolbar">
-        <div class="search-container" role="search" aria-label="Buscar artigos">
-          <label for="search-input" class="visually-hidden">Buscar artigos</label>
-          <i class="bi bi-search search-icon" aria-hidden="true"></i>
-          <input type="search" id="search-input" class="search-input" placeholder="Buscar por título, tema, autor..." autocomplete="off" aria-describedby="search-hint">
-          <div id="search-results" class="search-results" role="listbox" aria-label="Resultados da busca"></div>
-          <span id="search-hint" class="visually-hidden">Digite para buscar nos artigos</span>
+    <canvas id="particles-canvas" aria-hidden="true"></canvas>
+    <header class="site-header" role="banner">
+        <div class="container">
+            <a href="/" class="site-brand" aria-label="Jesus, sem filtros - Início">
+                <i class="bi bi-person-workspace" aria-hidden="true"></i>
+                <span>Jesus, sem filtros</span>
+            </a>
+            <nav class="main-nav" role="navigation" aria-label="Navegação principal">
+                <a href="/" class="nav-link">Início</a>
+                <a href="/posts.html" class="nav-link active" aria-current="page">Artigos</a>
+                <a href="/tags.html" class="nav-link">Tags</a>
+                <a href="/archive.html" class="nav-link">Arquivo</a>
+                <a href="/sobre.html" class="nav-link">Sobre</a>
+            </nav>
+            <button class="theme-toggle" aria-label="Alternar entre tema claro e escuro" title="Alternar tema">
+                <i class="bi bi-sun-fill" aria-hidden="true"></i>
+                <i class="bi bi-moon-fill" aria-hidden="true"></i>
+            </button>
+            <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
+                <i class="bi bi-list" aria-hidden="true"></i>
+            </button>
         </div>
-        
-        <div class="posts-controls">
-          <label for="sort-select" class="visually-hidden">Ordenar por</label>
-          <select id="sort-select" class="sort-select">
-            <option value="date-desc">Mais recentes</option>
-            <option value="date-asc">Mais antigos</option>
-            <option value="title-asc">Título (A-Z)</option>
-            <option value="reading-time">Tempo de leitura</option>
-          </select>
+    </header>
+    <main class="site-main" role="main">
+        <div class="container">
+            <header class="page-header">
+                <h1>Artigos</h1>
+                <p>Visão histórica e direta sobre Jesus de Nazaré - sem maquiagem religiosa, sem romantismo new age, sem cinismo barato.</p>
+            </header>
+            <div class="posts-toolbar">
+                <div class="search-container" role="search" aria-label="Buscar artigos">
+                    <label for="search-input" class="visually-hidden">Buscar artigos</label>
+                    <i class="bi bi-search search-icon" aria-hidden="true"></i>
+                    <input type="search" id="search-input" class="search-input" placeholder="Buscar por título, tema, autor..." autocomplete="off" aria-describedby="search-hint">
+                    <div id="search-results" class="search-results" role="listbox" aria-label="Resultados da busca"></div>
+                    <span id="search-hint" class="visually-hidden">Digite para buscar nos artigos</span>
+                </div>
+                <div class="posts-controls">
+                    <label for="sort-select" class="visually-hidden">Ordenar por</label>
+                    <select id="sort-select" class="sort-select">
+                        <option value="date-desc">Mais recentes</option>
+                        <option value="date-asc">Mais antigos</option>
+                        <option value="title-asc">Título (A-Z)</option>
+                        <option value="reading-time">Tempo de leitura</option>
+                    </select>
+                </div>
+            </div>
+            <div class="posts-header-info">
+                <span id="posts-count" class="posts-count" aria-live="polite"></span>
+            </div>
+            <div class="posts-grid" id="posts-grid" role="list" aria-label="Lista de artigos">
+                <!-- Carregado via JS -->
+            </div>
+            <nav class="pagination" id="pagination" aria-label="Paginação" style="display: none;">
+                <!-- Carregado via JS -->
+            </nav>
         </div>
-      </div>
-
-      <div class="posts-header-info">
-        <span id="posts-count" class="posts-count" aria-live="polite"></span>
-      </div>
-
-      <div class="posts-grid" id="posts-grid" role="list" aria-label="Lista de artigos">
-        <!-- Carregado via JS -->
-      </div>
-
-      <nav class="pagination" id="pagination" aria-label="Paginação" style="display: none;">
-        <!-- Carregado via JS -->
-      </nav>
-    </div>
-  </main>
-
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-content">
-        <p>&copy; Lz_ntn - 2026 — Jesus, sem filtros</p>
-        <nav class="footer-nav" aria-label="Links do rodapé">
-          <a href="/feed.xml" target="_blank" rel="noopener"><i class="bi bi-rss" aria-hidden="true"></i> RSS</a>
-          <a href="/sitemap.xml" target="_blank" rel="noopener"><i class="bi bi-diagram-3" aria-hidden="true"></i> Sitemap</a>
-          <a href="https://github.com/lz-ntn/Jesus" target="_blank" rel="noopener"><i class="bi bi-github" aria-hidden="true"></i> GitHub</a>
-        </nav>
-      </div>
-    </div>
-  </footer>
-
-  <button id="back-to-top" class="back-to-top" aria-label="Voltar ao topo">
-    <i class="bi bi-chevron-up" aria-hidden="true"></i>
-  </button>
-
-  <script type="module">
-    import { loadPostsPage } from '/js/posts-page.js';
+    </main>
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; Lz_ntn - 2026 — Jesus, sem filtros</p>
+                <nav class="footer-nav" aria-label="Links do rodapé">
+                    <a href="/feed.xml" target="_blank" rel="noopener"><i class="bi bi-rss" aria-hidden="true"></i> RSS</a>
+                    <a href="/sitemap.xml" target="_blank" rel="noopener"><i class="bi bi-diagram-3" aria-hidden="true"></i> Sitemap</a>
+                    <a href="https://github.com/lzntn" target="_blank" rel="noopener"><i class="bi bi-github" aria-hidden="true"></i> GitHub</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+    <button id="back-to-top" class="back-to-top" aria-label="Voltar ao topo">
+        <i class="bi bi-chevron-up" aria-hidden="true"></i>
+    </button>
+    <script type="module">
+        import { loadPostsPage } from '/js/posts-page.js';
     loadPostsPage();
   </script>
 </body>
+
 </html>
