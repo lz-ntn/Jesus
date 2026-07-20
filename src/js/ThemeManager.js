@@ -6,7 +6,14 @@ class ThemeManager {
   }
 
   init() {
-    this.currentTheme = this.getStoredTheme() || CONFIG.theme.default;
+    const stored = this.getStoredTheme();
+    if (stored) {
+      this.currentTheme = stored;
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      this.currentTheme = 'dark';
+    } else {
+      this.currentTheme = CONFIG.theme.default;
+    }
     this.applyTheme(this.currentTheme);
     
     const toggle = document.querySelector(SELECTORS.themeToggle);

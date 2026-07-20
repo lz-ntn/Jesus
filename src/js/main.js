@@ -98,23 +98,6 @@ function initKeyboardNavigation() {
     });
 }
 
-function initFontSizeControls() {
-    const controls = document.querySelectorAll('[data-font-size]');
-    controls.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const size = btn.dataset.fontSize;
-            document.documentElement.style.fontSize = size;
-            localStorage.setItem('font-size', size);
-            controls.forEach(b => b.classList.toggle('active', b === btn));
-        });
-    });
-
-    const savedSize = localStorage.getItem('font-size');
-    if (savedSize) {
-        document.documentElement.style.fontSize = savedSize;
-    }
-}
-
 async function init() {
     if (document.readyState === 'loading') {
         await new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve));
@@ -135,9 +118,10 @@ async function init() {
     }
 
     const isPostPage = document.querySelector('.post-page');
+    const isPostListingPage = document.getElementById('posts-grid');
     const isSearchPage = document.querySelector(SELECTORS.searchInput);
 
-    if (isSearchPage) {
+    if (isSearchPage && !isPostListingPage) {
         await searchEngine.init();
     }
 

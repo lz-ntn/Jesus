@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, readdirSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs';
 import { resolve, join } from 'path';
 
 const distDir = resolve('dist');
@@ -53,11 +53,16 @@ let count = 0;
 
 for (const dir of ['posts', 'tags']) {
   const dirPath = join(distDir, dir);
-  if (!readdirSync(dirPath)) continue;
+  if (!existsSync(dirPath)) continue;
   const files = readdirSync(dirPath).filter(f => f.endsWith('.html'));
   for (const file of files) {
     if (patchHtml(join(dirPath, file))) count++;
   }
+}
+
+const rootFiles = readdirSync(distDir).filter(f => f.endsWith('.html'));
+for (const file of rootFiles) {
+  if (patchHtml(join(distDir, file))) count++;
 }
 
 console.log(`✓ Patched ${count} HTML files with Vite asset paths`);

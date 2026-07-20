@@ -9,7 +9,7 @@ import DOMPurify from 'dompurify';
 const { window } = new JSDOM('');
 const purify = DOMPurify(window);
 
-const SITE_URL = 'https://jesus-sem-filtros.com';
+const SITE_URL = 'https://jesus-7ykm.onrender.com';
 
 function ensureDir(dir) {
     if (!fs.existsSync(dir)) {
@@ -99,7 +99,7 @@ function createLayout({ title, meta = '', activePage, content }) {
         <nav class="footer-nav" aria-label="Links do rodapé">
           <a href="/feed.xml" target="_blank" rel="noopener"><i class="bi bi-rss" aria-hidden="true"></i> RSS</a>
           <a href="/sitemap.xml" target="_blank" rel="noopener"><i class="bi bi-diagram-3" aria-hidden="true"></i> Sitemap</a>
-          <a href="https://github.com/lzntn" target="_blank" rel="noopener"><i class="bi bi-github" aria-hidden="true"></i> GitHub</a>
+          <a href="https://github.com/lz-nt/Jesus" target="_blank" rel="noopener"><i class="bi bi-github" aria-hidden="true"></i> GitHub</a>
         </nav>
       </div>
     </div>
@@ -122,7 +122,7 @@ function generatePostPage(post) {
   <meta property="og:type" content="article">
   <meta property="article:published_time" content="${post.date}">
   <meta property="article:tag" content="${post.tags.join(',')}">
-  <link rel="canonical" href="/posts/${post.slug}.html">`;
+  <link rel="canonical" href="${SITE_URL}/posts/${post.slug}.html">`;
 
     const tagsHtml = post.tags
         .map(tag => `<a href="/tags/${slugify(tag)}.html" class="tag">${tag}</a>`)
@@ -191,7 +191,7 @@ function generateTagPage(tag, posts) {
     <header class="page-header"><h1>Tag: ${tag}</h1><p>${posts.length} artigo${posts.length !== 1 ? 's' : ''}</p></header>
     <div class="posts-grid">${postsHtml}</div>`;
 
-    return createLayout({ title: `Tag: ${tag}`, activePage: 'tags', content });
+    return createLayout({ title: `Tag: ${tag}`, meta: `<link rel="canonical" href="${SITE_URL}/tags/${slugify(tag)}.html">`, activePage: 'tags', content });
 }
 
 function generateArchivePage(posts) {
@@ -323,7 +323,8 @@ async function build() {
 
     posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    fs.writeFileSync('dist/data/posts-index.json', JSON.stringify(posts, null, 2));
+    const indexPosts = posts.map(({ html, markdown, ...rest }) => rest);
+    fs.writeFileSync('dist/data/posts-index.json', JSON.stringify(indexPosts, null, 2));
     console.log(`✓ Index: ${posts.length} posts`);
 
     for (const post of posts) {

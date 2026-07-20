@@ -190,7 +190,6 @@ li {
 
 blockquote {
     border-left: 3px solid var(--color-primary);
-    padding-left: var(--space-4);
     margin: var(--space-6) 0;
     font-style: italic;
     color: var(--color-text-muted);
@@ -928,7 +927,8 @@ hr {
 }
 
 .sort-select:focus {
-    outline: none;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
     border-color: var(--color-primary);
 }
 

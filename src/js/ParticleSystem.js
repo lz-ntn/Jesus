@@ -63,7 +63,11 @@ class ParticleSystem {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.target === this.canvas) {
+            const wasPaused = this.animationPaused;
             this.animationPaused = !entry.isIntersecting;
+            if (wasPaused && !this.animationPaused) {
+              this.animate();
+            }
           }
         });
       }, { rootMargin: '200px' });
@@ -117,7 +121,6 @@ class ParticleSystem {
 
   animate() {
     if (this.animationPaused) {
-      this.animationId = requestAnimationFrame(() => this.animate());
       return;
     }
     
