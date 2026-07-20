@@ -26,7 +26,7 @@ function enhancePostContent() {
         const code = pre.querySelector('code');
         if (code) {
             pre.classList.add('code-block');
-            const lang = code.className.match(/language-(\w+)/) ? . [1] || '';
+            const lang = code.className.match(/language-(\w+)/)?.[1] || '';
             if (lang) {
                 pre.dataset.language = lang;
             }
@@ -83,16 +83,16 @@ function initKeyboardNavigation() {
 
         if (e.key === 'Escape') {
             const searchResults = document.querySelector(SELECTORS.searchResults);
-            if (searchResults ? .classList.contains('active')) {
+            if (searchResults ?.classList.contains('active')) {
                 searchResults.classList.remove('active');
-                document.querySelector(SELECTORS.searchInput) ? .blur();
+                document.querySelector(SELECTORS.searchInput) ?.blur();
             }
 
             const nav = document.querySelector(SELECTORS.mainNav);
-            if (nav ? .classList.contains('mobile-open')) {
+            if (nav ?.classList.contains('mobile-open')) {
                 nav.classList.remove('mobile-open');
                 document.body.classList.remove('nav-open');
-                document.querySelector(SELECTORS.mobileMenuBtn) ? .setAttribute('aria-expanded', 'false');
+                document.querySelector(SELECTORS.mobileMenuBtn) ?.setAttribute('aria-expanded', 'false');
             }
         }
     });

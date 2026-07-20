@@ -4,24 +4,21 @@ import { resolve, join } from 'path';
 const distDir = resolve('dist');
 const manifestPath = resolve('dist/.vite/manifest.json');
 
-if (!readFileSync(manifestPath, 'utf-8')) {
-  console.warn('⚠ Vite manifest not found, skipping postbuild');
-  process.exit(0);
-}
-
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'));
 
-const mainPolyfill = manifest['_main-BsW5INhO.js'];
-const mainApp = manifest['_main-ikLxAeY6.js'];
+const chunks = Object.entries(manifest).filter(([k]) => k.startsWith('_main-'));
 
-if (!mainPolyfill || !mainApp) {
-  console.warn('⚠ Main chunks not found in manifest');
+const polyfillChunk = chunks.find(([, v]) => v.css)?.[1];
+const appChunk = chunks.find(([, v]) => !v.css && v.name === 'main')?.[1];
+
+if (!polyfillChunk || !appChunk) {
+  console.warn('⚠ Could not find main chunks in manifest');
   process.exit(0);
 }
 
-const cssPath = mainPolyfill.css?.[0];
-const polyfillPath = mainPolyfill.file;
-const appPath = mainApp.file;
+const cssPath = polyfillChunk.css?.[0];
+const polyfillPath = polyfillChunk.file;
+const appPath = appChunk.file;
 
 const scriptTags = [
   `<script type="module" crossorigin src="/${polyfillPath}"></script>`,
@@ -54,14 +51,13 @@ function patchHtml(filePath) {
 
 let count = 0;
 
-const postFiles = readdirSync(join(distDir, 'posts')).filter(f => f.endsWith('.html'));
-for (const file of postFiles) {
-  if (patchHtml(join(distDir, 'posts', file))) count++;
-}
-
-const tagFiles = readdirSync(join(distDir, 'tags')).filter(f => f.endsWith('.html'));
-for (const file of tagFiles) {
-  if (patchHtml(join(distDir, 'tags', file))) count++;
+for (const dir of ['posts', 'tags']) {
+  const dirPath = join(distDir, dir);
+  if (!readdirSync(dirPath)) continue;
+  const files = readdirSync(dirPath).filter(f => f.endsWith('.html'));
+  for (const file of files) {
+    if (patchHtml(join(dirPath, file))) count++;
+  }
 }
 
 console.log(`✓ Patched ${count} HTML files with Vite asset paths`);
