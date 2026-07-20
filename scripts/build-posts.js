@@ -72,25 +72,30 @@ async function buildPosts() {
   generateArchivePage(posts);
 }
 
-function generatePostPage(post) {
+function createLayout({ title, meta = '', activePage, content }) {
+  const navLinks = [
+    { href: '/', label: 'Início', page: 'home' },
+    { href: '/posts.html', label: 'Artigos', page: 'posts' },
+    { href: '/tags.html', label: 'Tags', page: 'tags' },
+    { href: '/sobre.html', label: 'Sobre', page: 'sobre' },
+  ];
+
+  const navHtml = navLinks
+    .map(l => `<a href="${l.href}" class="nav-link${l.page === activePage ? ' active' : ''}">${l.label}</a>`)
+    .join('');
+
   return `<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${post.title} | Jesus, sem filtros</title>
-  <meta name="description" content="${post.excerpt}">
-  <meta property="og:title" content="${post.title}">
-  <meta property="og:description" content="${post.excerpt}">
-  <meta property="og:type" content="article">
-  <meta property="article:published_time" content="${post.date}">
-  <meta property="article:tag" content="${post.tags.join(',')}">
+  <title>${title} | Jesus, sem filtros</title>
+  ${meta}
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="/posts/${post.slug}.html">
 </head>
 <body>
   <canvas id="particles-canvas"></canvas>
-  
+
   <header class="site-header">
     <div class="container">
       <a href="/" class="site-brand" aria-label="Início">
@@ -98,10 +103,7 @@ function generatePostPage(post) {
         <span>Jesus, sem filtros</span>
       </a>
       <nav class="main-nav" aria-label="Navegação principal">
-        <a href="/" class="nav-link">Início</a>
-        <a href="/posts.html" class="nav-link active">Artigos</a>
-        <a href="/tags.html" class="nav-link">Tags</a>
-        <a href="/sobre.html" class="nav-link">Sobre</a>
+        ${navHtml}
       </nav>
       <button class="theme-toggle" aria-label="Alternar tema" title="Alternar tema">
         <i class="bi bi-sun-fill"></i>
@@ -111,6 +113,35 @@ function generatePostPage(post) {
   </header>
 
   <main class="site-main">
+    ${content}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; Lz_ntn - ${new Date().getFullYear()}</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>`;
+}
+
+function generatePostPage(post) {
+  const meta = `
+  <meta name="description" content="${post.excerpt}">
+  <meta property="og:title" content="${post.title}">
+  <meta property="og:description" content="${post.excerpt}">
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="${post.date}">
+  <meta property="article:tag" content="${post.tags.join(',')}">
+  <link rel="canonical" href="/posts/${post.slug}.html">`;
+
+  const tagsHtml = post.tags
+    .map(tag => `<a href="/tags.html#${tag}" class="tag">${tag}</a>`)
+    .join('');
+
+  const content = `
     <article class="post-page">
       <header class="post-header">
         <div class="post-meta">
@@ -118,15 +149,13 @@ function generatePostPage(post) {
           <span class="reading-time"><i class="bi bi-clock"></i> ${post.readingTime} min</span>
         </div>
         <h1 class="post-title">${post.title}</h1>
-        <div class="post-tags">
-          ${post.tags.map(tag => `<a href="/tags.html#${tag}" class="tag">${tag}</a>`).join('')}
-        </div>
+        <div class="post-tags">${tagsHtml}</div>
       </header>
-      
+
       <div class="post-content" id="post-content">
         ${post.html}
       </div>
-      
+
       <footer class="post-footer">
         <div class="post-author">
           <span>Por ${post.author}</span>
@@ -144,23 +173,14 @@ function generatePostPage(post) {
         </div>
       </footer>
     </article>
-    
+
     <nav class="post-nav" aria-label="Navegação entre posts">
       <a href="/posts.html" class="post-nav-link back-link">
         <i class="bi bi-arrow-left"></i> Voltar aos artigos
       </a>
-    </nav>
-  </main>
+    </nav>`;
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; Lz_ntn - ${new Date().getFullYear()}</p>
-    </div>
-  </footer>
-
-  <script type="module" src="/js/main.js"></script>
-</body>
-</html>`;
+  return createLayout({ title: post.title, meta, activePage: 'posts', content });
 }
 
 function generateTagPages(posts) {
@@ -203,31 +223,11 @@ function generateTagPage(tag, posts) {
     </article>
   `).join('');
 
-  return `<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tag: ${tag} | Jesus, sem filtros</title>
-  <link rel="stylesheet" href="/css/main.css">
-</head>
-<body>
-  <canvas id="particles-canvas"></canvas>
-  <header class="site-header">
-    <div class="container">
-      <a href="/" class="site-brand"><i class="bi bi-person-workspace"></i><span>Jesus, sem filtros</span></a>
-      <nav class="main-nav"><a href="/" class="nav-link">Início</a><a href="/posts.html" class="nav-link active">Artigos</a><a href="/tags.html" class="nav-link">Tags</a><a href="/sobre.html" class="nav-link">Sobre</a></nav>
-      <button class="theme-toggle" aria-label="Alternar tema"><i class="bi bi-sun-fill"></i><i class="bi bi-moon-fill"></i></button>
-    </div>
-  </header>
-  <main class="site-main">
+  const content = `
     <header class="page-header"><h1>Tag: ${tag}</h1><p>${posts.length} artigo${posts.length !== 1 ? 's' : ''}</p></header>
-    <div class="posts-grid">${postsHtml}</div>
-  </main>
-  <footer class="site-footer"><div class="container"><p>&copy; Lz_ntn - ${new Date().getFullYear()}</p></div></footer>
-  <script type="module" src="/js/main.js"></script>
-</body>
-</html>`;
+    <div class="posts-grid">${postsHtml}</div>`;
+
+  return createLayout({ title: `Tag: ${tag}`, activePage: 'tags', content });
 }
 
 function generateAllTagsPage(tagsMap) {
@@ -239,31 +239,11 @@ function generateAllTagsPage(tagsMap) {
       </a>
     `).join('');
 
-  return `<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todas as tags | Jesus, sem filtros</title>
-  <link rel="stylesheet" href="/css/main.css">
-</head>
-<body>
-  <canvas id="particles-canvas"></canvas>
-  <header class="site-header">
-    <div class="container">
-      <a href="/" class="site-brand"><i class="bi bi-person-workspace"></i><span>Jesus, sem filtros</span></a>
-      <nav class="main-nav"><a href="/" class="nav-link">Início</a><a href="/posts.html" class="nav-link active">Artigos</a><a href="/tags.html" class="nav-link">Tags</a><a href="/sobre.html" class="nav-link">Sobre</a></nav>
-      <button class="theme-toggle" aria-label="Alternar tema"><i class="bi bi-sun-fill"></i><i class="bi bi-moon-fill"></i></button>
-    </div>
-  </header>
-  <main class="site-main">
+  const content = `
     <header class="page-header"><h1>Todas as Tags</h1><p>${tagsMap.size} tópicos abordados</p></header>
-    <div class="tag-cloud">${tagsHtml}</div>
-  </main>
-  <footer class="site-footer"><div class="container"><p>&copy; Lz_ntn - ${new Date().getFullYear()}</p></div></footer>
-  <script type="module" src="/js/main.js"></script>
-</body>
-</html>`;
+    <div class="tag-cloud">${tagsHtml}</div>`;
+
+  return createLayout({ title: 'Todas as Tags', activePage: 'tags', content });
 }
 
 function generateArchivePage(posts) {
@@ -291,31 +271,11 @@ function generateArchivePage(posts) {
       </section>
     `).join('');
 
-  const html = `<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arquivo | Jesus, sem filtros</title>
-  <link rel="stylesheet" href="/css/main.css">
-</head>
-<body>
-  <canvas id="particles-canvas"></canvas>
-  <header class="site-header">
-    <div class="container">
-      <a href="/" class="site-brand"><i class="bi bi-person-workspace"></i><span>Jesus, sem filtros</span></a>
-      <nav class="main-nav"><a href="/" class="nav-link">Início</a><a href="/posts.html" class="nav-link active">Artigos</a><a href="/tags.html" class="nav-link">Tags</a><a href="/sobre.html" class="nav-link">Sobre</a></nav>
-      <button class="theme-toggle" aria-label="Alternar tema"><i class="bi bi-sun-fill"></i><i class="bi bi-moon-fill"></i></button>
-    </div>
-  </header>
-  <main class="site-main">
+  const content = `
     <header class="page-header"><h1>Arquivo Completo</h1><p>${posts.length} artigos publicados</p></header>
-    <div class="archive">${yearsHtml}</div>
-  </main>
-  <footer class="site-footer"><div class="container"><p>&copy; Lz_ntn - ${new Date().getFullYear()}</p></div></footer>
-  <script type="module" src="/js/main.js"></script>
-</body></html>`;
+    <div class="archive">${yearsHtml}</div>`;
 
+  const html = createLayout({ title: 'Arquivo', activePage: 'posts', content });
   fs.writeFileSync('src/pages/archive.html', html);
 }
 

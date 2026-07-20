@@ -4,66 +4,7 @@ import { readingProgress } from './ReadingProgress.js';
 import { searchEngine } from './SearchEngine.js';
 import { shareManager } from './ShareManager.js';
 import { backToTop } from './BackToTop.js';
-import { CONFIG, SELECTORS } from './config.js';
-
-function getCssVariable(name) {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}
-
-function hexToRgba(hex, alpha) {
-  const clean = hex.replace('#', '');
-  const r = parseInt(clean.slice(0, 2), 16);
-  const g = parseInt(clean.slice(2, 4), 16);
-  const b = parseInt(clean.slice(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
-
-function createParticle(ctx, canvas, config) {
-  return {
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: Math.random() * (config.size.max - config.size.min) + config.size.min,
-    speedX: (Math.random() - 0.5) * config.speed,
-    speedY: (Math.random() - 0.5) * config.speed,
-    opacity: Math.random() * (config.opacity.max - config.opacity.min) + config.opacity.min,
-    pulse: Math.random() * Math.PI * 2,
-  };
-}
-
-function updateParticle(p, canvas, config) {
-  p.x += p.speedX;
-  p.y += p.speedY;
-  p.pulse += config.pulseSpeed;
-  
-  if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
-    p.x = Math.random() * canvas.width;
-    p.y = Math.random() * canvas.height;
-  }
-}
-
-function drawParticle(ctx, p, color) {
-  const alpha = p.opacity * (0.5 + 0.5 * Math.sin(p.pulse));
-  ctx.fillStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha})`;
-  ctx.beginPath();
-  ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-  ctx.fill();
-}
-
-function drawConnection(ctx, p1, p2, color, maxDist) {
-  const dx = p1.x - p2.x;
-  const dy = p1.y - p2.y;
-  const dist = Math.sqrt(dx * dx + dy * dy);
-  
-  if (dist < maxDist) {
-    const alpha = (1 - dist / maxDist) * 0.15;
-    ctx.strokeStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha})`;
-    ctx.lineWidth = 0.5;
-    ctx.beginPath();
-    ctx.moveTo(p1.x, p1.y);
-    ctx.lineTo(p2.x, p2.y);
-    ctx.stroke();
-  }
-}
+import { SELECTORS } from './config.js';
 
 function enhancePostContent() {
   const content = document.querySelector(SELECTORS.postContent);
