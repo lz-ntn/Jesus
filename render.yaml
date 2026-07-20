@@ -1,7 +1,7 @@
 services:
   - type: web
     name: jesus-sem-filtro
-    runtime: static
+    env: node
     buildCommand: yarn install && yarn build
     startCommand: npx serve dist --no-clipboard
     autoDeploy: true
