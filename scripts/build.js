@@ -55,6 +55,7 @@ function createLayout({ title, meta = '', activePage, content }) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${title} | Jesus, sem filtros</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   ${meta}
   <link rel="stylesheet" href="/css/main.css">
 </head>
