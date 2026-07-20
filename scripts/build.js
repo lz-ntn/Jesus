@@ -57,6 +57,11 @@ function createLayout({ title, meta = '', activePage, content }) {
   <title>${title} | Jesus, sem filtros</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   ${meta}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Cinzel:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Cinzel:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
@@ -74,6 +79,9 @@ function createLayout({ title, meta = '', activePage, content }) {
       <button class="theme-toggle" aria-label="Alternar entre tema claro e escuro" title="Alternar tema">
         <i class="bi bi-sun-fill" aria-hidden="true"></i>
         <i class="bi bi-moon-fill" aria-hidden="true"></i>
+      </button>
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
+        <i class="bi bi-list" aria-hidden="true"></i>
       </button>
     </div>
   </header>

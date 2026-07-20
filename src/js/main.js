@@ -4,6 +4,7 @@ import { readingProgress } from './ReadingProgress.js';
 import { searchEngine } from './SearchEngine.js';
 import { shareManager } from './ShareManager.js';
 import { backToTop } from './BackToTop.js';
+import { loadHomePage } from './home-page.js';
 import { SELECTORS } from './config.js';
 
 function enhancePostContent() {
@@ -127,7 +128,11 @@ async function init() {
   enhancePostContent();
   initMobileMenu();
   initKeyboardNavigation();
-  initFontSizeControls();
+
+  const isHomePage = document.querySelector('.hero');
+  if (isHomePage) {
+    await loadHomePage();
+  }
   
   const isPostPage = document.querySelector('.post-page');
   const isSearchPage = document.querySelector(SELECTORS.searchInput);

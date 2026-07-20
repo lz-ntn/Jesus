@@ -36,6 +36,9 @@ class ParticleSystem {
     this.canvas = document.querySelector(SELECTORS.particlesCanvas);
     if (!this.canvas) return;
     
+    this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (this.reducedMotion) return;
+    
     this.ctx = this.canvas.getContext('2d');
     this.isMobile = window.innerWidth < this.config.mobileBreakpoint;
     
