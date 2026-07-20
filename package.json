@@ -4,10 +4,9 @@
   "description": "Blog sobre Jesus histórico - sem filtros religiosos",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "npm run build:posts && vite build && node scripts/copy-pages.js && node scripts/generate-seo.js",
-    "preview": "vite preview",
-    "build:posts": "node scripts/build-posts.js"
+    "dev": "node scripts/build.js && vite",
+    "build": "node scripts/build.js && vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "vite": "^5.4.0",
