@@ -62,12 +62,14 @@ function createLayout({ title, meta = '', activePage, content }) {
   ${meta}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Cinzel:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Cinzel:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Literata:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Literata:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Literata:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@600&display=swap"></noscript>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Ir para o conteúdo</a>
   <canvas id="particles-canvas" aria-hidden="true"></canvas>
 
   <header class="site-header" role="banner">
@@ -89,7 +91,7 @@ function createLayout({ title, meta = '', activePage, content }) {
     </div>
   </header>
 
-  <main class="site-main" role="main">
+  <main id="main-content" class="site-main" role="main" tabindex="-1">
     ${content}
   </main>
 

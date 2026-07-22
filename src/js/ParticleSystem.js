@@ -106,7 +106,8 @@ class ParticleSystem {
   createParticles() {
     const count = this.isMobile ? this.config.reducedCountMobile : this.config.count;
     this.particles = [];
-    
+    this.drawLines = !this.isMobile;
+
     for (let i = 0; i < count; i++) {
       this.particles.push(this.createParticle());
     }
@@ -141,12 +142,14 @@ class ParticleSystem {
       this.drawParticle(ctx, p);
     });
     
-    for (let i = 0; i < this.particles.length; i++) {
-      for (let j = i + 1; j < this.particles.length; j++) {
-        this.drawConnection(ctx, this.particles[i], this.particles[j]);
+    if (this.drawLines) {
+      for (let i = 0; i < this.particles.length; i++) {
+        for (let j = i + 1; j < this.particles.length; j++) {
+          this.drawConnection(ctx, this.particles[i], this.particles[j]);
+        }
       }
     }
-    
+
     this.animationId = requestAnimationFrame(() => this.animate());
   }
 

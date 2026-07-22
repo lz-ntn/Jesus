@@ -1,103 +1,73 @@
-let allPosts = [];
-let allTags = new Map();
+import { getPostsIndex, createPostCard, slugify, escapeHtml } from './posts-data.js';
 
 export async function loadTagsPage() {
-  await loadPostsIndex();
-  buildTagIndex();
-  renderTagCloud();
-  renderTagSections();
-}
+  const allPosts = await getPostsIndex();
+  const allTags = buildTagIndex(allPosts);
+  renderTagCloud(allTags, allPosts.length);
+  renderTagSections(allTags);
 
-async function loadPostsIndex() {
-  try {
-    const response = await fetch('/data/posts-index.json');
-    if (response.ok) {
-      allPosts = await response.json();
+  if (location.hash) {
+    const el = document.querySelector(location.hash);
+    if (el) {
+      requestAnimationFrame(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     }
-  } catch (e) {
-    console.warn('Posts index not loaded:', e);
-    allPosts = [];
   }
 }
 
-function buildTagIndex() {
-  allTags.clear();
-  
-  allPosts.forEach(post => {
-    post.tags.forEach(tag => {
-      if (!allTags.has(tag)) {
-        allTags.set(tag, []);
-      }
+function buildTagIndex(allPosts) {
+  const allTags = new Map();
+  allPosts.forEach((post) => {
+    (post.tags || []).forEach((tag) => {
+      if (!allTags.has(tag)) allTags.set(tag, []);
       allTags.get(tag).push(post);
     });
   });
+  return allTags;
 }
 
-function renderTagCloud() {
+function renderTagCloud(allTags, postsCount) {
   const cloud = document.getElementById('tag-cloud');
   const countEl = document.getElementById('tags-count');
-  
   if (!cloud) return;
-  
-  const sortedTags = Array.from(allTags.entries())
-    .sort((a, b) => b[1].length - a[1].length);
-  
+
+  const sortedTags = Array.from(allTags.entries()).sort((a, b) => b[1].length - a[1].length);
+
   if (countEl) {
-    countEl.textContent = `${sortedTags.length} tópico${sortedTags.length !== 1 ? 's' : ''} em ${allPosts.length} artigo${allPosts.length !== 1 ? 's' : ''}`;
+    countEl.textContent = `${sortedTags.length} tópico${sortedTags.length !== 1 ? 's' : ''} em ${postsCount} artigo${postsCount !== 1 ? 's' : ''}`;
   }
-  
-  cloud.innerHTML = sortedTags.map(([tag, posts]) => {
-    const size = Math.min(1 + posts.length * 0.15, 2.5);
-    return `
+
+  cloud.innerHTML = sortedTags
+    .map(([tag, posts]) => {
+      const size = Math.min(1 + posts.length * 0.15, 2.5);
+      return `
       <a href="#tag-${slugify(tag)}" class="tag-cloud-item" style="--size: ${size}rem" role="listitem">
         ${escapeHtml(tag)}
         <span class="tag-count">(${posts.length})</span>
       </a>
     `;
-  }).join('');
+    })
+    .join('');
 }
 
-function renderTagSections() {
+function renderTagSections(allTags) {
   const sections = document.getElementById('tag-sections');
   if (!sections) return;
-  
-  const sortedTags = Array.from(allTags.entries())
-    .sort((a, b) => b[1].length - a[1].length);
-  
-  sections.innerHTML = sortedTags.map(([tag, posts]) => `
+
+  const sortedTags = Array.from(allTags.entries()).sort((a, b) => b[1].length - a[1].length);
+
+  sections.innerHTML = sortedTags
+    .map(
+      ([tag, posts]) => `
     <section class="tag-section" id="tag-${slugify(tag)}" aria-labelledby="tag-${slugify(tag)}-title">
-      <h2 id="tag-${slugify(tag)}-title">${escapeHtml(tag)} <span class="tag-count">(${posts.length})</span></h2>
+      <h2 id="tag-${slugify(tag)}-title">
+        <a href="/tags/${slugify(tag)}.html">${escapeHtml(tag)}</a>
+        <span class="tag-count">(${posts.length})</span>
+      </h2>
       <div class="posts-grid">
-        ${posts.map(post => `
-          <article class="post-card">
-            <header>
-              <time datetime="${post.date}">${formatDate(post.date)}</time>
-              <h3><a href="/posts/${post.slug}.html">${escapeHtml(post.title)}</a></h3>
-            </header>
-            <p class="excerpt">${escapeHtml(post.excerpt)}</p>
-            <footer>
-              <span class="reading-time"><i class="bi bi-clock" aria-hidden="true"></i> ${post.readingTime} min</span>
-              <div class="tags">
-                ${post.tags.map(t => `<a href="#tag-${slugify(t)}" class="tag">${escapeHtml(t)}</a>`).join('')}
-              </div>
-            </footer>
-          </article>
-        `).join('')}
+        ${posts.map((post) => createPostCard(post, { heading: 'h3', maxTags: 2 })).join('')}
       </div>
     </section>
-  `).join('');
-}
-
-function slugify(str) {
-  return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-}
-
-function formatDate(dateStr) {
-  return new Date(dateStr).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
-}
-
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
+  `
+    )
+    .join('');
 }

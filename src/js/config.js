@@ -1,12 +1,12 @@
 export const CONFIG = {
   particles: {
-    count: 80,
-    reducedCountMobile: 30,
+    count: 48,
+    reducedCountMobile: 18,
     mobileBreakpoint: 768,
-    maxDistance: 140,
-    speed: 0.4,
-    size: { min: 0.5, max: 2.5 },
-    opacity: { min: 0.1, max: 0.5 },
+    maxDistance: 120,
+    speed: 0.35,
+    size: { min: 0.5, max: 2.2 },
+    opacity: { min: 0.1, max: 0.45 },
     pulseSpeed: 0.008,
   },
   theme: {
