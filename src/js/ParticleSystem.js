@@ -47,7 +47,8 @@ class ParticleSystem {
     this.createParticles();
     this.animate();
     
-    window.addEventListener('resize', this.handleResize.bind(this));
+    this._onResize = this.handleResize.bind(this);
+    window.addEventListener('resize', this._onResize);
     
     const mediaQuery = window.matchMedia(`(max-width: ${this.config.mobileBreakpoint - 1}px)`);
     mediaQuery.addEventListener('change', () => {
@@ -83,18 +84,22 @@ class ParticleSystem {
   }
 
   resize() {
-    if (!this.canvas) return;
-    
+    if (!this.canvas || !this.ctx) return;
+
+    const dpr = window.devicePixelRatio || 1;
     const rect = this.canvas.getBoundingClientRect();
-    this.canvas.width = rect.width * window.devicePixelRatio;
-    this.canvas.height = rect.height * window.devicePixelRatio;
-    this.ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-    this.canvas.style.width = rect.width + 'px';
-    this.canvas.style.height = rect.height + 'px';
-    
+    const width = rect.width || window.innerWidth;
+    const height = rect.height || window.innerHeight;
+
+    this.canvas.width = Math.floor(width * dpr);
+    this.canvas.height = Math.floor(height * dpr);
+    this.canvas.style.width = width + 'px';
+    this.canvas.style.height = height + 'px';
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
     this.particles.forEach(p => {
-      p.x = Math.min(p.x, this.canvas.width / window.devicePixelRatio);
-      p.y = Math.min(p.y, this.canvas.height / window.devicePixelRatio);
+      p.x = Math.min(p.x, width);
+      p.y = Math.min(p.y, height);
     });
   }
 
@@ -182,7 +187,9 @@ class ParticleSystem {
 
   destroy() {
     cancelAnimationFrame(this.animationId);
-    window.removeEventListener('resize', this.handleResize);
+    if (this._onResize) {
+      window.removeEventListener('resize', this._onResize);
+    }
   }
 }
 

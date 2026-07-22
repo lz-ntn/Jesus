@@ -1,5 +1,3 @@
-import { CONFIG } from './config.js';
-
 export async function loadHomePage() {
   await loadFeaturedPosts();
   renderTopics();

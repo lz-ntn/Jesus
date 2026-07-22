@@ -5,6 +5,9 @@ import { searchEngine } from './SearchEngine.js';
 import { shareManager } from './ShareManager.js';
 import { backToTop } from './BackToTop.js';
 import { loadHomePage } from './home-page.js';
+import { loadPostsPage } from './posts-page.js';
+import { loadTagsPage } from './tags-page.js';
+import { loadArchivePage } from './archive-page.js';
 import { SELECTORS } from './config.js';
 
 function enhancePostContent() {
@@ -112,20 +115,17 @@ async function init() {
     initMobileMenu();
     initKeyboardNavigation();
 
-    const isHomePage = document.querySelector('.hero');
-    if (isHomePage) {
+    if (document.querySelector('.hero')) {
         await loadHomePage();
-    }
-
-    const isPostPage = document.querySelector('.post-page');
-    const isPostListingPage = document.getElementById('posts-grid');
-    const isSearchPage = document.querySelector(SELECTORS.searchInput);
-
-    if (isSearchPage && !isPostListingPage) {
+    } else if (document.getElementById('posts-grid') && document.getElementById('sort-select')) {
+        await loadPostsPage();
+    } else if (document.getElementById('tag-cloud')) {
+        await loadTagsPage();
+    } else if (document.getElementById('archive')) {
+        await loadArchivePage();
+    } else if (document.querySelector(SELECTORS.searchInput)) {
         await searchEngine.init();
     }
-
-    console.log('Jesus, sem filtros - carregado com sucesso');
 }
 
 init();

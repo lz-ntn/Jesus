@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jesus-sem-filtros.com/sitemap.xml
+Sitemap: https://jesus-7ykm.onrender.com/sitemap.xml

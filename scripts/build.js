@@ -54,6 +54,7 @@ function createLayout({ title, meta = '', activePage, content }) {
     return `<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <script>try{var t=localStorage.getItem("jesus-theme");if(t)document.documentElement.setAttribute("data-theme",t);else if(matchMedia("(prefers-color-scheme:light)").matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${title} | Jesus, sem filtros</title>
@@ -75,7 +76,7 @@ function createLayout({ title, meta = '', activePage, content }) {
         <i class="bi bi-person-workspace" aria-hidden="true"></i>
         <span>Jesus, sem filtros</span>
       </a>
-      <nav class="main-nav" role="navigation" aria-label="Navegação principal">
+      <nav id="main-nav" class="main-nav" role="navigation" aria-label="Navegação principal">
         ${navHtml}
       </nav>
       <button class="theme-toggle" aria-label="Alternar entre tema claro e escuro" title="Alternar tema">
@@ -293,6 +294,9 @@ ${urls}
 async function build() {
     const startTime = Date.now();
 
+    if (fs.existsSync('dist')) {
+        fs.rmSync('dist', { recursive: true, force: true });
+    }
     ensureDir('dist');
     ensureDir('dist/posts');
     ensureDir('dist/tags');
@@ -324,7 +328,10 @@ async function build() {
     posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     const indexPosts = posts.map(({ html, markdown, ...rest }) => rest);
-    fs.writeFileSync('dist/data/posts-index.json', JSON.stringify(indexPosts, null, 2));
+    const indexJson = JSON.stringify(indexPosts, null, 2);
+    fs.writeFileSync('dist/data/posts-index.json', indexJson);
+    ensureDir('src/data');
+    fs.writeFileSync('src/data/posts-index.json', indexJson);
     console.log(`✓ Index: ${posts.length} posts`);
 
     for (const post of posts) {

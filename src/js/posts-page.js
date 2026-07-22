@@ -104,8 +104,9 @@ function showSearchResults(query, container) {
 }
 
 function highlightMatch(text, query) {
+  const safe = escapeHtml(text || '');
   const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+  return safe.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
 }
 
 function setupSort() {
@@ -170,7 +171,7 @@ function renderPosts() {
       <footer>
         <span class="reading-time"><i class="bi bi-clock" aria-hidden="true"></i> ${post.readingTime} min</span>
         <div class="tags">
-          ${post.tags.map(tag => `<a href="/tags.html#${escapeHtml(tag)}" class="tag">${escapeHtml(tag)}</a>`).join('')}
+          ${post.tags.map(tag => `<a href="/tags/${slugify(tag)}.html" class="tag">${escapeHtml(tag)}</a>`).join('')}
         </div>
       </footer>
     </article>
@@ -251,6 +252,15 @@ function updateCount() {
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+}
+
+function slugify(str) {
+  return String(str)
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 }
 
 function escapeHtml(text) {

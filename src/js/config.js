@@ -10,8 +10,8 @@ export const CONFIG = {
     pulseSpeed: 0.008,
   },
   theme: {
-    default: 'light',
-    storageKey: 'theme',
+    default: 'dark',
+    storageKey: 'jesus-theme',
   },
   search: {
     minQueryLength: 2,

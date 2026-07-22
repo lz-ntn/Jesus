@@ -3,5 +3,5 @@ services:
     name: jesus-sem-filtro
     env: node
     buildCommand: yarn install && yarn build
-    startCommand: npx serve dist --no-clipboard
+    startCommand: npx serve dist --no-clipboard -l 3000
     autoDeploy: true

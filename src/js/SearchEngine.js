@@ -1,4 +1,4 @@
-import { CONFIG, SELECTORS, STORAGE_KEYS } from './config.js';
+import { CONFIG, SELECTORS } from './config.js';
 
 class SearchEngine {
   constructor() {
